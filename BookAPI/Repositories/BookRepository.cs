@@ -38,12 +38,15 @@ namespace BookAPI.Repositories
 
         }
 
-        public async Task<Book> Update(Book book)
+        public async Task Update(Book book)
         {
             _context.Entry(book).State = EntityState.Modified;  
             await _context.SaveChangesAsync();
         }
 
-
+        Task<Book> IBookRepository.Update(Book book)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

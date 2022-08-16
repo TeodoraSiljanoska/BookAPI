@@ -42,9 +42,41 @@ namespace BookAPI
             services.AddControllers();
             services.AddSwaggerGen(c =>
            {
-               c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookAPI", Version = "v1" });
+               c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BookAPI", Version = "v1" });
            }
             );
+
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+           {
+               c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookAPI V");
+               c.RoutePrefix ="";
+           }
+            );
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            app.UseStaticFiles();
+
+
 
         }
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
