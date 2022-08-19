@@ -1,4 +1,8 @@
 ﻿using BookAPI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookAPI.Repositories
@@ -40,13 +44,10 @@ namespace BookAPI.Repositories
 
         public async Task Update(Book book)
         {
-            _context.Entry(book).State = EntityState.Modified;  
+            _context.Entry(book).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
-        Task<Book> IBookRepository.Update(Book book)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
